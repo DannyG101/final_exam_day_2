@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 import pymysql
 import pymysql.cursors
 
+from api_service import graph_functions
+
 load_dotenv()
 
 class MySQLConnection:
@@ -78,19 +80,13 @@ class MySQLConnection:
             for result in results:
                 print(result)
 
-    def q5(self):
+    def q5(self, entity_id):
         conn = self.connect_to_db()
-        query = """
+        query = f"""
                 SELECT reported_lat, reported_lon FROM intel_signals
-                WHERE entity_id = 'TGT-005'
+                WHERE entity_id = '{entity_id}'
                 """
         with conn.cursor() as cur:
             cur.execute(query)
             results = cur.fetchall()
-            for result in results:
-                print(result)
-
-
-
-test = MySQLConnection()
-test.q4()
+            return graph_functions.create_line_graph(results)
