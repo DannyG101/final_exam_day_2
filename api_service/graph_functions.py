@@ -2,7 +2,7 @@ import io
 import matplotlib.pyplot as plt
 
 
-def create_line_graph(results):
+def create_line_graph(results, entity_id):
     lon = []
     lat = []
     for result in results:
@@ -11,7 +11,7 @@ def create_line_graph(results):
 
     fig = plt.figure()
     plt.plot(lon, lat, marker='o')
-    plt.title("entity_id")
+    plt.title(f"entity_id: {entity_id}")
     plt.xlabel('lon')
     plt.ylabel("lat")
     img_buf = io.BytesIO()

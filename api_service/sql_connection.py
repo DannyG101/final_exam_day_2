@@ -89,4 +89,4 @@ class MySQLConnection:
         with conn.cursor() as cur:
             cur.execute(query)
             results = cur.fetchall()
-            return graph_functions.create_line_graph(results)
+            return graph_functions.create_line_graph(results, entity_id)
