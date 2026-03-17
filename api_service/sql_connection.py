@@ -66,7 +66,7 @@ class MySQLConnection:
             results = cur.fetchall()
             return results
 
-    def q4(self):
+    def awake_sleeping_cells(self):
         conn = self.connect_to_db()
         query = """
                 SELECT entity_id, HOUR(timestamp) AS hour FROM intel_signals
@@ -77,10 +77,9 @@ class MySQLConnection:
         with conn.cursor(pymysql.cursors.DictCursor) as cur:
             cur.execute(query)
             results = cur.fetchall()
-            for result in results:
-                print(result)
+            return results
 
-    def q5(self, entity_id):
+    def route_visualization(self, entity_id):
         conn = self.connect_to_db()
         query = f"""
                 SELECT reported_lat, reported_lon FROM intel_signals
