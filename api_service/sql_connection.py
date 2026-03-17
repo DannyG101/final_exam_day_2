@@ -70,6 +70,7 @@ class MySQLConnection:
         conn = self.connect_to_db()
         query = """
                 SELECT entity_id, HOUR(timestamp) AS hour FROM intel_signals
+                WHERE HOUR(timestamp) > 8 AND  HOUR(timestamp) < 20
                 GROUP BY entity_id, HOUR(timestamp)
                 HAVING SUM(distance_from_last) = 0
                 ORDER BY entity_id
