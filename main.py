@@ -1,9 +1,9 @@
 import os
-
+from dotenv import load_dotenv
 import pymysql
 import pymysql.cursors
 
-
+load_dotenv()
 
 class MySQLConnection:
     def __init__(self):
@@ -17,11 +17,11 @@ class MySQLConnection:
     def connect_to_db(self):
         if self.conn is None:
             self.conn = pymysql.connect(
-                host='localhost',
-                port=3306,
-                user='root',
-                password='root',
-                database='digital_hunter'
+                host=self.host,
+                port=self.port,
+                user=self.user,
+                password=self.password,
+                database=self.database
             )
         return self.conn
 
@@ -41,9 +41,9 @@ class MySQLConnection:
     def signal_type_count(self):
         conn = self.connect_to_db()
         query = """
-                   SELECT signal_type, COUNT(*) AS total FROM intel_signals
-                   GROUP BY signal_type
-                   ORDER BY total DESC 
+                SELECT signal_type, COUNT(*) AS total FROM intel_signals
+                GROUP BY signal_type
+                ORDER BY total DESC 
                 """
         with conn.cursor(pymysql.cursors.DictCursor) as cur:
             cur.execute(query)
@@ -77,3 +77,20 @@ class MySQLConnection:
             results = cur.fetchall()
             for result in results:
                 print(result)
+
+    def q5(self):
+        conn = self.connect_to_db()
+        query = """
+                SELECT reported_lat, reported_lon FROM intel_signals
+                WHERE entity_id = 'TGT-005'
+                """
+        with conn.cursor() as cur:
+            cur.execute(query)
+            results = cur.fetchall()
+            for result in results:
+                print(result)
+
+
+
+test = MySQLConnection()
+test.q4()
