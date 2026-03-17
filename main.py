@@ -63,3 +63,17 @@ class MySQLConnection:
             cur.execute(query)
             results = cur.fetchall()
             return results
+
+    def q4(self):
+        conn = self.connect_to_db()
+        query = """
+                SELECT entity_id, HOUR(timestamp) AS hour FROM intel_signals
+                GROUP BY entity_id, HOUR(timestamp)
+                HAVING SUM(distance_from_last) = 0
+                ORDER BY entity_id
+                """
+        with conn.cursor(pymysql.cursors.DictCursor) as cur:
+            cur.execute(query)
+            results = cur.fetchall()
+            for result in results:
+                print(result)
