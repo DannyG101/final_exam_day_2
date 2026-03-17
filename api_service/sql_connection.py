@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import pymysql
 import pymysql.cursors
 
-from api_service import graph_functions
+import graph_functions
 
 load_dotenv()
 

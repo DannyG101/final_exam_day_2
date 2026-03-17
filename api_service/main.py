@@ -29,3 +29,4 @@ def route_visualization(entity_id):
     img_buf = query_handler.route_visualization(entity_id)
     headers = {'Content-Disposition': 'inline; filename="out.png"'}
     return Response(img_buf.getvalue(), headers=headers, media_type='image/png')
+
